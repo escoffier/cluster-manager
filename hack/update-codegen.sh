@@ -1,0 +1,36 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+SCRIPT_ROOT=$(dirname ${BASH_SOURCE})/..
+CODEGEN_PKG=${CODEGEN_PKG:-$(cd ${SCRIPT_ROOT}; ls -d -1 ./vendor/k8s.io/code-generator 2>/dev/null || echo ../../../k8s.io/code-generator)}
+
+verify="${VERIFY:-}"
+
+set -x
+# Because go mod sux, we have to fake the vendor for generator in order to be able to build it...
+mv ${CODEGEN_PKG}/generate-groups.sh ${CODEGEN_PKG}/generate-groups.sh.orig
+sed 's/ go install/#go install/g' ${CODEGEN_PKG}/generate-groups.sh.orig > ${CODEGEN_PKG}/generate-groups.sh
+function cleanup {
+  mv ${CODEGEN_PKG}/generate-groups.sh.orig ${CODEGEN_PKG}/generate-groups.sh
+}
+trap cleanup EXIT
+
+go install -mod=vendor ./${CODEGEN_PKG}/cmd/{defaulter-gen,client-gen,lister-gen,informer-gen,deepcopy-gen}
+echo "${SCRIPT_ROOT}"
+bash ${CODEGEN_PKG}/generate-groups.sh "client,lister,informer" \
+github.com/escoffier/cluster-manager/pkg/generated \
+github.com/escoffier/cluster-manager/pkg/api \
+"cluster:v1" \
+--go-header-file /home/robbie/workspace/cluster-manager/hack/boilerplate.go.txt 
+
+# for group in cluster; do
+#   bash ${CODEGEN_PKG}/generate-groups.sh "client,lister,informer" \
+#     open-cluster-management.io/api/client/${group} \
+#     open-cluster-management.io/api \
+#     "${group}:v1,v1alpha1,v1beta1" \
+#     --go-header-file ${SCRIPT_ROOT}/hack/boilerplate.txt \
+#     ${verify}
+# done
