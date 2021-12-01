@@ -24,7 +24,8 @@ bash ${CODEGEN_PKG}/generate-groups.sh "client,lister,informer" \
 github.com/escoffier/cluster-manager/pkg/generated \
 github.com/escoffier/cluster-manager/pkg/api \
 "cluster:v1" \
---go-header-file /home/robbie/workspace/cluster-manager/hack/boilerplate.go.txt 
+--go-header-file "${SCRIPT_ROOT}"/hack/boilerplate.go.txt 
+#--go-header-file /home/robbie/workspace/cluster-manager/hack/boilerplate.go.txt 
 
 # for group in cluster; do
 #   bash ${CODEGEN_PKG}/generate-groups.sh "client,lister,informer" \

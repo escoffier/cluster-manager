@@ -5,7 +5,7 @@ metadata:
   name: managedcluster-editor-role
 rules:
 - apiGroups:
-  - cluster.security.io.github.com
+  - cluster.security.io
   resources:
   - managedclusters
   verbs:
@@ -17,7 +17,7 @@ rules:
   - update
   - watch
 - apiGroups:
-  - cluster.security.io.github.com
+  - cluster.security.io
   resources:
   - managedclusters/status
   verbs:

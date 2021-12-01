@@ -1,4 +1,4 @@
-domain: github.com
+domain: security.io
 layout:
 - go.kubebuilder.io/v3
 projectName: cluster-manager
@@ -8,8 +8,8 @@ resources:
     crdVersion: v1
     namespaced: true
   controller: true
-  domain: github.com
-  group: cluster.security.io
+  domain: security.io
+  group: cluster
   kind: ManagedCluster
   path: github.com/escoffier/cluster-manager/api/v1
   version: v1

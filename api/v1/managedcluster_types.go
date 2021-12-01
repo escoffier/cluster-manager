@@ -23,13 +23,22 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
+type ClientConfig struct {
+	BearToken string `json:"bearToken,omitempty"`
+	// CertData holds PEM-encoded bytes.
+	CertData []byte `json:"certData,omitempty"`
+	// KeyData holds PEM-encoded bytes.
+	KeyData []byte `json:"keyData,omitempty"`
+	// CAData holds PEM-encoded bytes.
+	CAData     []byte `json:"cAData,omitempty"`
+	SecretName string `json:"secretName,omitempty"`
+}
+
 // ManagedClusterSpec defines the desired state of ManagedCluster
 type ManagedClusterSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of ManagedCluster. Edit managedcluster_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	ClientConfig ClientConfig `json:"clientConfig"`
 }
 
 // ManagedClusterStatus defines the observed state of ManagedCluster

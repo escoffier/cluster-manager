@@ -5,7 +5,7 @@ metadata:
   name: managedcluster-viewer-role
 rules:
 - apiGroups:
-  - cluster.security.io.github.com
+  - cluster.security.io
   resources:
   - managedclusters
   verbs:
@@ -13,7 +13,7 @@ rules:
   - list
   - watch
 - apiGroups:
-  - cluster.security.io.github.com
+  - cluster.security.io
   resources:
   - managedclusters/status
   verbs:

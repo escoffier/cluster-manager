@@ -1,3 +1,3 @@
 package hack
 
-import _ "k8s.io/code-generator"
+// import _ "k8s.io/code-generator"
