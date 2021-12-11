@@ -1,2 +1,2 @@
 # cluster-manager
-## management multi kubernetes clustes
+## management multi kubernetes clusters
